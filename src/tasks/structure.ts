@@ -38,7 +38,7 @@ export type Task = {
   effects?: Effect[];
   equip?: Item[] | (() => Item[]);
   acquire?: AcquireItem[];
-  familiar?: Familiar;
+  familiar?: Familiar | (() => Familiar);
   delay?: number | (() => number);
   freeaction?: boolean;
   freecombat?: boolean;

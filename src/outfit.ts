@@ -11,7 +11,18 @@ import {
   useFamiliar,
   weaponHands,
 } from "kolmafia";
-import { $familiar, $item, $skill, $slot, $slots, $stat, get, have, Requirement } from "libram";
+import {
+  $familiar,
+  $familiars,
+  $item,
+  $skill,
+  $slot,
+  $slots,
+  $stat,
+  get,
+  have,
+  Requirement,
+} from "libram";
 import { Task } from "./tasks/structure";
 import { canChargeVoid, Resource } from "./resources";
 
@@ -205,7 +216,8 @@ export class Outfit {
     } else if (task.equip) {
       for (const item of task.equip) outfit.equip(item);
     }
-    if (task.familiar) outfit.equip(task.familiar);
+    const familiar = typeof task.familiar === "function" ? task.familiar() : task.familiar;
+    if (familiar) outfit.equip(familiar);
 
     if (task.modifier) {
       // Run maximizer
@@ -224,6 +236,12 @@ export class Outfit {
       if (task.modifier.includes("meat")) outfit.equip($familiar`Hobo Monkey`);
       if (task.modifier.includes("init")) outfit.equip($familiar`Oily Woim`);
       outfit.modifier = task.modifier;
+    }
+    if (outfit.familiar && !outfit.equips.get($slot`familiar`)) {
+      if (outfit.familiar === $familiar`Melodramedary`)
+        outfit.equip($item`dromedary drinking helmet`);
+      if (outfit.familiar === $familiar`Reagnimated Gnome`)
+        outfit.equip($item`gnomish housemaid's kgnee`);
     }
 
     return outfit;
@@ -245,7 +263,9 @@ export class Outfit {
         this.equip($item`protonic accelerator pack`);
       this.equip($item`vampyric cloake`);
       if (myBasestat($stat`mysticality`) >= 25) this.equip($item`Mr. Cheeng's spectacles`);
-      this.equip($familiar`Galloping Grill`);
+      this.equip(
+        $familiars`Temporal Riftlet, Reagnimated Gnome`.find(have) ?? $familiar`Galloping Grill`
+      );
     }
   }
 }

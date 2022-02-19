@@ -86,8 +86,8 @@ const Desert: Task[] = [
         !get("fireExtinguisherDesertUsed") &&
         have($effect`Ultrahydrated`)
       )
-        return $items`industrial fire extinguisher, UV-resistant compass, dromedary drinking helmet`;
-      else return $items`UV-resistant compass, dromedary drinking helmet`;
+        return $items`industrial fire extinguisher, UV-resistant compass`;
+      else return $items`UV-resistant compass`;
     },
     familiar: $familiar`Melodramedary`,
     combat: new CombatStrategy()

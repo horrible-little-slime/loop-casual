@@ -19,6 +19,11 @@ function manualChoice(whichchoice: number, option: number) {
   return visitUrl(`choice.php?whichchoice=${whichchoice}&pwd=${myHash()}&option=${option}`);
 }
 
+const familiarPicker = () => {
+  if (get("cyrptNookEvilness") > 25 && get("camelSpit") < 100) return $familiar`Melodramedary`;
+  return $familiar`Reagnimated Gnome`;
+};
+
 const Temple: Task[] = [
   {
     name: "Forest Coin",
@@ -98,8 +103,8 @@ const Apartment: Task[] = [
     after: ["Open City"],
     completed: () => get("hiddenApartmentProgress") >= 1,
     do: $location`An Overgrown Shrine (Northwest)`,
-    equip: $items`antique machete, dromedary drinking helmet`,
-    familiar: $familiar`Melodramedary`,
+    equip: $items`antique machete`,
+    familiar: familiarPicker(),
     choices: { 781: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -157,8 +162,8 @@ const Office: Task[] = [
     after: ["Open City"],
     completed: () => get("hiddenOfficeProgress") >= 1,
     do: $location`An Overgrown Shrine (Northeast)`,
-    equip: $items`antique machete, dromedary drinking helmet`,
-    familiar: $familiar`Melodramedary`,
+    equip: $items`antique machete`,
+    familiar: familiarPicker(),
     choices: { 785: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -238,8 +243,8 @@ const Hospital: Task[] = [
     after: ["Open City"],
     completed: () => get("hiddenHospitalProgress") >= 1,
     do: $location`An Overgrown Shrine (Southwest)`,
-    equip: $items`antique machete, dromedary drinking helmet`,
-    familiar: $familiar`Melodramedary`,
+    equip: $items`antique machete`,
+    familiar: familiarPicker(),
     choices: { 783: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -286,8 +291,8 @@ const Bowling: Task[] = [
     after: ["Open City"],
     completed: () => get("hiddenBowlingAlleyProgress") >= 1,
     do: $location`An Overgrown Shrine (Southeast)`,
-    equip: $items`antique machete, dromedary drinking helmet`,
-    familiar: $familiar`Melodramedary`,
+    equip: $items`antique machete`,
+    familiar: familiarPicker(),
     choices: { 787: 1 },
     limit: { tries: 4 },
     freecombat: true,
@@ -329,8 +334,8 @@ export const HiddenQuest: Quest = {
       after: ["Finish Office", "Finish Apartment", "Finish Hospital", "Finish Bowling"],
       completed: () => step("questL11Worship") === 999,
       do: $location`A Massive Ziggurat`,
-      equip: $items`antique machete, dromedary drinking helmet`,
-      familiar: $familiar`Melodramedary`,
+      equip: $items`antique machete`,
+      familiar: familiarPicker(),
       choices: { 791: 1 },
       combat: new CombatStrategy(true).kill(...$monsters`dense liana, Protector Spectre`),
       limit: { tries: 4 },
